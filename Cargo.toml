@@ -4,7 +4,15 @@ version = "0.0.1"
 edition = "2021"
 license = "MIT"
 description = "My random tools"
+rust-version = "1.59.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+crossbeam = { version = "0.8.1", optional = true }
+chrono = { version = "0.4.19", optional = true }
+
+[features]
+
+channels = ["crossbeam", "time"]
+time = ["chrono"]

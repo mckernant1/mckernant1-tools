@@ -1,2 +1,2 @@
-pub mod map;
 pub mod counting;
+pub mod map;

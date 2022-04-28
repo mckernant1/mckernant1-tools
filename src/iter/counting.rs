@@ -7,10 +7,11 @@ pub trait Countable {
     fn each_count(self) -> HashMap<Self::Item, u64>;
 }
 
-
 impl<I, T> Countable for I
-    where I: IntoIterator<Item=T>,
-          T: Hash + Eq {
+where
+    I: IntoIterator<Item = T>,
+    T: Hash + Eq,
+{
     type Item = T;
 
     fn each_count(self) -> HashMap<Self::Item, u64> {
@@ -27,8 +28,8 @@ impl<I, T> Countable for I
 
 #[cfg(test)]
 mod test {
-    use std::collections::HashMap;
     use crate::iter::counting::Countable;
+    use std::collections::HashMap;
 
     #[test]
     fn test_each_count() {
