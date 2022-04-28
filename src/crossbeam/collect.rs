@@ -1,7 +1,7 @@
 use chrono::{Duration, Utc};
 use crossbeam::channel::Receiver;
 
-trait Collectable<T> {
+pub trait Collectable<T> {
     /// Counts Recvs over duration with a 1 millisecond timeout on the recv call
     fn count_over_duration(&self, duration: Duration) -> i32;
     /// Counts all recvs until the channel is empty
