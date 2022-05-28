@@ -1,11 +1,9 @@
-use std::thread;
-use std::thread::JoinHandle;
 use crossbeam::channel::Sender;
 use log::debug;
+use std::thread;
+use std::thread::JoinHandle;
 
-pub fn read_stdin(
-    stdin_send: Sender<Option<String>>
-) -> JoinHandle<()> {
+pub fn read_stdin(stdin_send: Sender<Option<String>>) -> JoinHandle<()> {
     thread::spawn(move || {
         loop {
             let mut buf = String::new();
@@ -18,5 +16,4 @@ pub fn read_stdin(
         debug!("No More input");
         stdin_send.send(None).unwrap();
     })
-
 }
