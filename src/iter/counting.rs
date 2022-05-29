@@ -53,8 +53,10 @@ mod test {
     use crate::iter::counting::Countable;
     use std::collections::HashMap;
 
+    #[derive(Clone, Hash, PartialEq, Eq, Debug)]
     struct Test {
         a: i64,
+        b: u64,
     }
 
     #[test]
@@ -68,15 +70,26 @@ mod test {
     #[test]
     fn test_each_count_by() {
         let v = vec![
-            Test { a: 1 },
-            Test { a: 1 },
-            Test { a: 1 },
-            Test { a: 2 },
-            Test { a: 3 },
-            Test { a: 3 },
-            Test { a: 3 },
-            Test { a: 3 },
+            Test { a: 1, b: 1 },
+            Test { a: 1, b: 2 },
+            Test { a: 1, b: 2 },
+            Test { a: 2, b: 1 },
+            Test { a: 3, b: 1 },
+            Test { a: 3, b: 2 },
+            Test { a: 3, b: 2 },
+            Test { a: 3, b: 2 },
         ];
+        let x = v.clone().each_count();
+        assert_eq!(
+            x,
+            HashMap::from([
+                (Test { a: 3, b: 2 }, 3),
+                (Test { a: 1, b: 2 }, 2),
+                (Test { a: 1, b: 1 }, 1),
+                (Test { a: 3, b: 1 }, 1),
+                (Test { a: 2, b: 1 }, 1)
+            ])
+        );
         let v = v.each_count_by(|it| it.a);
         assert_eq!(v, HashMap::from([(1, 3), (2, 1), (3, 4)]))
     }
