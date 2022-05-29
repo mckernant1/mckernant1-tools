@@ -1,19 +1,22 @@
 use std::collections::HashMap;
 use std::hash::Hash;
 
-pub trait Countable {
+pub trait EachCount {
     type Item;
 
+    /// gives a count of each unique item that exist
     fn each_count(self) -> HashMap<Self::Item, u64>
     where
         Self::Item: Hash + Eq;
 
+    /// gives a count of each unique item decided by the selector
+    /// This is essentially map + each_count
     fn each_count_by<K>(self, selector: fn(Self::Item) -> K) -> HashMap<K, u64>
     where
         K: Eq + Hash;
 }
 
-impl<I, T> Countable for I
+impl<I, T> EachCount for I
 where
     I: IntoIterator<Item = T>,
 {
@@ -50,7 +53,7 @@ where
 
 #[cfg(test)]
 mod test {
-    use crate::iter::counting::Countable;
+    use crate::iter::counting::EachCount;
     use std::collections::HashMap;
 
     #[derive(Clone, Hash, PartialEq, Eq, Debug)]
