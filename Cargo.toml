@@ -1,6 +1,6 @@
 [package]
 name = "mckernant1-tools"
-version = "0.0.5"
+version = "0.0.6"
 edition = "2021"
 license = "MIT"
 description = "My random tools"
@@ -15,6 +15,6 @@ tokio = { version = "1.18.2", optional = true }
 log = "0.4.16"
 
 [features]
-channels = ["crossbeam", "time"]
+channels = ["crossbeam", "chrono"]
 time = ["chrono"]
 async = ["tokio"]
