@@ -29,9 +29,7 @@ where
         let mut hm: HashMap<Self::Item, u64> = HashMap::new();
 
         for item in self.into_iter() {
-            let a = hm.get(&item).unwrap_or(&0_u64);
-            let new = a + 1;
-            hm.insert(item, new);
+            hm.entry(item).and_modify(|it| *it += 1).or_insert(1);
         }
         hm
     }
@@ -43,9 +41,7 @@ where
         let mut hm: HashMap<K, u64> = HashMap::new();
 
         for item in self.into_iter().map(|it| selector(it)) {
-            let a = hm.get(&item).unwrap_or(&0_u64);
-            let new = a + 1;
-            hm.insert(item, new);
+            hm.entry(item).and_modify(|it| *it += 1).or_insert(1);
         }
         hm
     }
